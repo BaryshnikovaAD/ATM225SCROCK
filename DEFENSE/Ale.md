@@ -6,6 +6,8 @@ https://research.aimultiple.com/open-source-sast-tools/
 
 https://tproger.ru/articles/best-kali-linux-tools
 
+
+
 ### 1. Компилятор C в Kali Linux
 
 В Kali Linux уже предустановлен GCC (GNU Compiler Collection) — стандартный компилятор для C.  
@@ -686,3 +688,41 @@ chmod +x program
    - `-fstack-protector` для защиты.  
    - `-g` для отладки.  
 
+https://habr.com/ru/companies/first/articles/740082/
+
+
+https://github.com/weggli-rs/weggli?tab=readme-ov-file
+
+
+git clone https://github.com/weggli-rs/weggli.git
+cd weggli
+
+
+sudo apt update && sudo apt install -y git python3 wget unzip
+
+
+# Скачиваем последнюю версию CLI (подставьте актуальную версию)
+wget https://github.com/github/codeql-cli-binaries/releases/download/v2.14.5/codeql-linux64.zip
+unzip codeql-linux64.zip
+sudo mv codeql /opt/
+
+
+echo 'export PATH="/opt/codeql:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+
+
+codeql --version
+
+
+git clone https://github.com/github/codeql.git ~/codeql-repo
+
+
+cd /path/to/your/project
+codeql database create ./codeql-db --language=cpp  # для C/C++
+
+
+codeql database analyze ./codeql-db ~/codeql-repo/ql/cpp/ql/src/Likely\ Bugs/ \
+  --format=csv --output=results.csv
+
+
+https://forumsoc.ru/reports/
