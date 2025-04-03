@@ -6,7 +6,99 @@ https://research.aimultiple.com/open-source-sast-tools/
 
 https://tproger.ru/articles/best-kali-linux-tools
 
-### 1. Компилятор C в Kali Linux
+На Kali Linux есть несколько мощных SAST (Static Application Security Testing) анализаторов для C++, которые помогут выявить уязвимости в коде. Вот подборка лучших инструментов:  
+
+### **1. Продвинутые SAST-анализаторы**  
+#### **Cppcheck**  
+🔹 **Описание**: Легковесный, но мощный статический анализатор C/C++ с низким уровнем ложных срабатываний.  
+🔹 **Установка**:  
+```bash
+sudo apt install cppcheck
+```  
+🔹 **Использование**:  
+```bash
+cppcheck --enable=all --inconclusive <ваша_директория>
+```  
+
+#### **Clang Static Analyzer (scan-build)**  
+🔹 **Описание**: Инструмент от LLVM, интегрируется с Clang, находит сложные баги.  
+🔹 **Установка**:  
+```bash
+sudo apt install clang clang-tools
+```  
+🔹 **Использование**:  
+```bash
+scan-build g++ ваш_файл.cpp
+```  
+
+#### **Flawfinder**  
+🔹 **Описание**: Быстрый анализатор, ищущий уязвимости (CWE, CVE).  
+🔹 **Установка**:  
+```bash
+sudo apt install flawfinder
+```  
+🔹 **Использование**:  
+```bash
+flawfinder ваш_файл.cpp
+```  
+
+#### **Infer** (от Meta/Facebook)  
+🔹 **Описание**: Мощный инструмент для поиска утечек памяти, гонок данных и других багов.  
+🔹 **Установка**:  
+```bash
+sudo apt install infer
+```  
+🔹 **Использование**:  
+```bash
+infer run -- g++ ваш_файл.cpp
+```  
+
+### **2. Инструменты для глубокого анализа**  
+#### **PVS-Studio** (бесплатно для Open-Source)  
+🔹 **Описание**: Коммерческий, но есть бесплатный вариант для открытых проектов.  
+🔹 **Установка**:  
+```bash
+wget -q -O - https://files.viva64.com/etc/pubkey.txt | sudo apt-key add -
+sudo wget -O /etc/apt/sources.list.d/viva64.list https://files.viva64.com/etc/viva64.list
+sudo apt update && sudo apt install pvs-studio
+```  
+🔹 **Активация**:  
+```bash
+pvs-studio-analyzer credentials NAME KEY
+```  
+🔹 **Использование**:  
+```bash
+pvs-studio-analyzer analyze -o project.log
+plog-converter -a GA:1,2 -t fullhtml -o report project.log
+```  
+
+#### **SonarQube + SonarScanner**  
+🔹 **Описание**: Промышленное решение для анализа кода (требует сервер).  
+🔹 **Установка**:  
+```bash
+sudo apt install sonarqube sonar-scanner
+```  
+🔹 **Использование**:  
+```bash
+sonar-scanner -Dsonar.projectKey=ваш_проект -Dsonar.sources=. -Dsonar.language=cpp
+```  
+
+### **3. Дополнительные утилиты**  
+- **GCC/G++ с флагами анализа**:  
+  ```bash
+  g++ -Wall -Wextra -pedantic -fanalyzer ваш_файл.cpp
+  ```  
+- **Clang-Tidy** (для стиля и безопасности):  
+  ```bash
+  clang-tidy ваш_файл.cpp --checks='*'
+  ```  
+
+### **Вывод**  
+Для **быстрого анализа** подойдут `Cppcheck` и `Flawfinder`.  
+Для **глубокого аудита** — `Clang Static Analyzer`, `Infer` или `PVS-Studio`.  
+Для **командной работы** — `SonarQube`.  
+
+m### 1. Компилятор C в Kali Linux
 
 В Kali Linux уже предустановлен GCC (GNU Compiler Collection) — стандартный компилятор для C.  
 
